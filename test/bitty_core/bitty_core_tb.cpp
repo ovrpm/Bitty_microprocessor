@@ -1,12 +1,16 @@
 #include "Vbitty_core.h"
 #include <iostream>
+#include <ctime>
 
 int main(){
     Vbitty_core* dut = new Vbitty_core();
 
-    int rand16bit = rand() % 65536; 
-    if (rand16bit % 4 == 3) rand16bit -= 2;
-    else if (rand16bit == 2) rand16bit -= 2;
+    srand(time(nullptr));
+
+    uint16_t rand16bit = rand(); 
+
+    //if (rand16bit % 4 == 3) rand16bit -= 2;
+    //else if (rand16bit == 2) rand16bit -= 2;
 
     //reset everything
     dut->reset = 1;
@@ -32,21 +36,20 @@ int main(){
     
     // one million random tests
     for (int i = 0; i < 1000000; i++){
-//        std::cout << "hi";
         //state0 -> state1
         dut->clk = 1;
         dut->eval();
         dut->clk = 0;
         dut->eval();         
         
-        if(rand16bit % 4 == 3) rand16bit -= 2;
-        else if (rand16bit % 4 == 2) rand16bit -= 2;
+        //if(rand16bit % 4 == 3) rand16bit -= 2;
+        //else if (rand16bit % 4 == 2) rand16bit -= 2;
 
-        rx = (rand16bit >> 13) & 0x7; // extract bits 15-13 (rx)
-        ry = (rand16bit >> 10) & 0x7; // extract bits 12-10 (ry)
-        alu_sel = (rand16bit >> 2) & 0x7; // extract bits 6-3 (alu select)
-        format = rand16bit & 0x3;
-        immediate = (rand16bit >> 5) & 0xFF;
+        rx = (rand16bit >> 13) & 0b111; // extract bits 15-13 (rx)
+        ry = (rand16bit >> 10) & 0b111; // extract bits 12-10 (ry)
+        alu_sel = (rand16bit >> 2) & 0b111; // extract bits 6-3 (alu select)
+        format = rand16bit & 0b1;
+        immediate = (rand16bit >> 5) & 0b11111111;
         
         //expected based on instruction
 //        std::cout << "rx = " << rx << " ry = " << ry << " alu_sel = " << alu_sel << std::endl;

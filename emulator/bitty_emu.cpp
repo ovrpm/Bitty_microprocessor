@@ -8,12 +8,13 @@ BittyEmulator::BittyEmulator() {
 }
 
 uint16_t BittyEmulator::Evaluate(uint16_t instruction){
+    num_tests++;
 
     int expected_value = 0;
     int rx = (instruction >> 13) & 0x7; // extract bits 15-13 (rx)
     int ry = (instruction >> 10) & 0x7; // extract bits 12-10 (ry)
     int immediate = (instruction >> 5) & 0xFF; // bits 12-5 (immediate)
-    int format = instruction & 0x3; // bits 1-0
+    int format = instruction & 0x1; // bit0
     int alu_sel = (instruction >> 2) & 0x7; // extract bits 4-2 (alu select)
     
     if (format == 0){ //two registers
@@ -63,8 +64,7 @@ uint16_t BittyEmulator::Evaluate(uint16_t instruction){
             else expected_value = 2;
         }
     }
-//    std::cout << alu_sel << "qqqqqqqqqqqqqqqqqq" << std::endl;
-//    std::cout << expected_value << "------------" << std::endl; 
+
     registers[rx] = expected_value;
 
     return (uint16_t)expected_value;
@@ -74,8 +74,6 @@ uint16_t BittyEmulator::GetRegisterValue(uint16_t reg_num){
     return registers[reg_num];
 }
 
-void yay(){
-    std::cout << "yay!" << std::endl;
+void BittyEmulator::printStats(){
+    std::cout << "Tests passed: " << num_tests << '\n';
 }
-
-

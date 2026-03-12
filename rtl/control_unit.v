@@ -6,7 +6,7 @@ module control_unit(
 
     //out for mux
     output reg [3:0] mux_sel,
-    
+
     input clk,
     input reset,
     input run,
@@ -57,7 +57,7 @@ module control_unit(
     end
 
     //output logic
-    always @(*) begin    
+    always @(*) begin
         //reset
         en_s = 0;
         en_c = 0;
@@ -71,6 +71,7 @@ module control_unit(
         en_6 = 0;
         en_7 = 0;
         done = 0;
+
         case(current_state)
             start: begin
                 en_i = 1;
@@ -80,9 +81,9 @@ module control_unit(
                 mux_sel = {1'b0, instruction[15:13]};
             end
             state1: begin
-                case(instruction[1:0])
+                case(instruction[0])
                     //immediate
-                    01: begin
+                    1: begin
                         en_s = 0;
                         en_c = 1;
                         alu_sel = instruction[4:2];
@@ -90,17 +91,19 @@ module control_unit(
                         immediate = instruction[12:5];
                     end
                     //2 registers
-                    00: begin
+                    0: begin
                         en_s = 0;
                         en_c = 1;
                         alu_sel = instruction[4:2];
-                        mux_sel = {1'b0, instruction[12:10]};                
+                        mux_sel = {1'b0, instruction[12:10]};
                     end
-                    default: begin                        
+                    /*
+                    default: begin
                         en_s = 0;
                         en_c = 1;
                         alu_sel = instruction[4:2];
-                        end
+                    end
+                    */
                 endcase
             end
             state2: begin
@@ -121,4 +124,3 @@ module control_unit(
     end
 
 endmodule
-

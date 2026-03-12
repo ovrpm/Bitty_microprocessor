@@ -22,11 +22,11 @@ int main (){
     for (int i = 0; i < 10; i++){
         rand_instruction = rand() % 65536;
 
-        alu_sel_expected = (rand_instruction >> 2) & 0x7;
-        format = rand_instruction & 0x3;
-        mux_sel_expected1 = (rand_instruction >> 13) & 0x7;
+        alu_sel_expected = (rand_instruction >> 2) & 0b111;
+        format = rand_instruction & 0b11;
+        mux_sel_expected1 = (rand_instruction >> 13) & 0b111;
         if (format == 0){
-            mux_sel_expected2 = (rand_instruction >> 10) & 0x7;
+            mux_sel_expected2 = (rand_instruction >> 10) & 0b111;
         }else if (format == 1){
             mux_sel_expected2 = 8;
         }else{
@@ -153,7 +153,6 @@ int main (){
         dut->eval();
 
     }
-
 
     return 0;
 }

@@ -15,15 +15,25 @@ int main()
     dut->in5 = 6;
     dut->in6 = 7;
     dut->in7 = 8;
+    dut->in8 = 9;
 
     int dut_output;
 
     //verifying all of the select options
-    for (int i = 0; i < 8; i++){
+    for (int i = 0; i < 15; i++){
         dut->mux_sel = i;
         dut->eval();
-        
+ 
         dut_output = (int)dut->mux_out;
+
+        //check unspecified inputs
+        if (i > 8 && dut_output == 0){
+            std::cout << "OK" << std::endl;
+            continue;
+        }else if (i > 8 && dut_output != 0){
+            std::cout << "Fail! dut = " << dut_output << " exp = " << 0 << std::endl;
+            continue;
+        }
 
         if (dut_output == (i + 1)){
             std::cout << "OK" << std::endl;

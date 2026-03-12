@@ -3,7 +3,7 @@
 
 int main (){
     Vregister* dut = new Vregister;
-    
+
     //reset
     dut->reset = 1;
     dut->clk = 1;

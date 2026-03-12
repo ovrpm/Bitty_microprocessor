@@ -1,15 +1,18 @@
 #include "Valu.h"
 
 #include <iostream>
+#include <ctime>
 
 int main()
 {
-    int rand_a, rand_b, rand_sel, exp_out;
+    srand(time(nullptr));
+
+    uint16_t rand_a, rand_b, rand_sel, exp_out;
 
     Valu* dut = new Valu();
 
     //one million random tests
-    for (int i = 0; i < 1000000; i++){
+    for (size_t i = 0; i < 1000000; i++){
         rand_a = rand() % 65536;
         rand_b = rand() % 65536;
         rand_sel = rand() % 8;
@@ -32,7 +35,7 @@ int main()
             exp_out = rand_a ^ rand_b;
         }else if (rand_sel == 5){
             if (rand_b > 15) exp_out = 0;
-            else exp_out = rand_a << rand_b;          
+            else exp_out = rand_a << rand_b;
         }else if (rand_sel == 6){
             if (rand_b > 15) exp_out = 0;
             else exp_out = rand_a >> rand_b;
@@ -46,10 +49,14 @@ int main()
         //std::cout << "in_a = " << rand_a << " in_b = " << rand_b << std::endl;
         //std::cout << "dut = " << (int)dut->alu_out << " exp = " << exp_out << " select = " << rand_sel << std::endl;
 
-        if ((int)dut->alu_out == exp_out){
+        if ((uint16_t)dut->alu_out == exp_out){
             std::cout << "OK" << std::endl;
         }else{
             std::cout << "Fail!" << std::endl;
+            std::cout << "in_a = " << rand_a << " in_b = " << rand_b << std::endl;
+            std::cout << "dut = " << (int)dut->alu_out << " exp = " << exp_out << " select = " << rand_sel << std::endl;
+
+            return 0;
         }
 
     }
