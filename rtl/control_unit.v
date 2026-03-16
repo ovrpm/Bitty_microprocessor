@@ -9,6 +9,8 @@
 //   2'b11 (state2) - Write-back stage, stores result
 // =============================================================================
 
+//Supress unused signal warning, the instruction[1] bit is reserved
+/* verilator lint_off UNUSEDSIGNAL */
 module control_unit(
     input [15:0] instruction,
 
@@ -128,3 +130,4 @@ module control_unit(
     end
 
 endmodule
+/* verilator lint_on UNUSEDSIGNAL */
