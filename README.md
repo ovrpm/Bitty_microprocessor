@@ -8,7 +8,7 @@ The project demonstrates end-to-end hardware/software co-design: the RTL and the
 ---
 
 ## Architecture Overview
-
+![](diagrams/bitty_core_diagram.drawio.png)
 
 The processor is built from five RTL modules that together implement a simple but complete fetch-decode-execute pipeline:
 
@@ -188,7 +188,7 @@ bitty/
 ## Tools & Technologies
 
 - **Verilog HDL** — RTL design
-- **C++ (C++17)** — emulator and testbenches
-- **Verilator** — RTL-to-C++ simulation and lint
+- **C++17** — emulator and testbenches
+- **Verilator** — RTL-to-C++ simulation
 - **SystemVerilog DPI-C** — hardware/software co-simulation interface
 - **Python 3** — build automation
