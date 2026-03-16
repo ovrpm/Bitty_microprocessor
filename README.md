@@ -120,7 +120,7 @@ private:
 
 ## Verification
 
-Each RTL module has a dedicated C++ testbench compiled and driven by Verilator. Tests are located under `test/<module>/`.
+Each RTL module has a dedicated C++ testbench compiled and driven by Verilator. Testing code is located under `test/<module>/`.
 
 | Module | Testbench |
 |---|---|
@@ -139,23 +139,20 @@ The `bitty_core` testbench exercises the full pipeline with the DPI-C emulator r
 Requires: **Verilator**, **Python 3**, **g++**
 
 ```bash
-# List all available modules
-python3 bitty_run.py -l
-
-# Compile and simulate a single module
-python3 bitty_run.py -s alu
-
 # Compile and simulate all modules
 python3 bitty_run.py -a
-
-# Generate VCD waveform for inspection (e.g. in GTKWave)
-python3 bitty_run.py -s bitty_core -w
-
-# Clean build artifacts
-python3 bitty_run.py -c
 ```
 
 The build script (`bitty_run.py`) automates the two-step Verilator flow: it first verilates the RTL into C++, then compiles and links the resulting Makefile with the testbench and DPI source.
+After compilation, testing can done by running executables corresponding to each module from the ./obj_dir/ directory:
+
+```bash
+#Verify bitty_core:
+./obj_dir/Vbitty_core
+
+#Verify ALU:
+./obj_dir/Valu
+```
 
 ---
 
