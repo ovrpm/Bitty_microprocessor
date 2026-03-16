@@ -16,7 +16,7 @@ uint16_t BittyEmulator::Evaluate(uint16_t instruction){
     int immediate = (instruction >> 5) & 0xFF; // bits 12-5 (immediate)
     int format = instruction & 0x1; // bit0
     int alu_sel = (instruction >> 2) & 0x7; // extract bits 4-2 (alu select)
-    
+
     if (format == 0){ //two registers
         if (alu_sel == 0){
             expected_value = (registers[rx] + registers[ry]) % 65536;

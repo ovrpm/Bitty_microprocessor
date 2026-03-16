@@ -1,3 +1,14 @@
+// =============================================================================
+// Control Unit
+// Multi-cycle FSM for Bitty processor instruction execution
+// =============================================================================
+// States (2-bit):
+//   2'b00 (start)  - Initial state, loads instruction
+//   2'b01 (state0) - Decode stage, selects source register
+//   2'b10 (state1) - Execute stage, performs ALU operation
+//   2'b11 (state2) - Write-back stage, stores result
+// =============================================================================
+
 module control_unit(
     input [15:0] instruction,
 
@@ -97,13 +108,6 @@ module control_unit(
                         alu_sel = instruction[4:2];
                         mux_sel = {1'b0, instruction[12:10]};
                     end
-                    /*
-                    default: begin
-                        en_s = 0;
-                        en_c = 1;
-                        alu_sel = instruction[4:2];
-                    end
-                    */
                 endcase
             end
             state2: begin

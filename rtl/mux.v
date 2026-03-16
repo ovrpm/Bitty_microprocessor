@@ -1,3 +1,15 @@
+// =============================================================================
+// Multiplexer (9-to-1)
+// Selects one of 9 input values based on 4-bit select signal
+// =============================================================================
+// Inputs:
+//   in0-in7 - Register inputs (16-bit)
+//   in8     - Immediate value input (16-bit)
+//   mux_sel - 4-bit select (0-8)
+// Outputs:
+//   mux_out - Selected 16-bit value
+// =============================================================================
+
 module mux(
     input [15:0] in0, 
     input [15:0] in1,

@@ -25,10 +25,15 @@ MODULES.append("alu")
 
 # Linux commands invoked within this script.
 # Verilator command to generate C++ and Makefiles.
-#VERILATE_COMMAND = "verilator --assert -I./rtl --Wall {0} --cc ./rtl/{1}.v --exe ./test/{1}/{1}_tb.cpp ./emulator/bitty_emu.cpp"
-VERILATE_COMMAND = "verilator  --assert -I./rtl --Wall {0} --cc ./rtl/{1}.v --exe ./test/{1}/{1}_tb.cpp ./dpi/bitty_dpi.cpp"
+VERILATE_COMMAND = "verilator --assert -I./rtl --Wall {0} --cc ./rtl/{1}.v --exe ./test/{1}/{1}_tb.cpp {2}"
 MAKE_COMMAND = "make -C obj_dir/ -f V{0}.mk V{0}"
 CLEAN_COMMAND = "rm -rf ./obj_dir"
+
+def get_dpi_file(module):
+    if module == "bitty_core":
+        return "./dpi/bitty_dpi.cpp ./emulator/bitty_emu.cpp"
+    else:
+        return "./emulator/bitty_emu.cpp"
 
 def print_all_modules():
     print("The design has the following modules:")
@@ -43,14 +48,16 @@ def compile_all(should_gen_wave):
     if should_gen_wave:
         trace = "--trace"
     for module in MODULES:
-        os.system(VERILATE_COMMAND.format(trace, module))
+        dpi_file = get_dpi_file(module)
+        os.system(VERILATE_COMMAND.format(trace, module, dpi_file))
         os.system(MAKE_COMMAND.format(module))
 
 def compile_single(module, should_gen_wave):
     trace = ""
     if should_gen_wave:
         trace = "--trace"
-    os.system(VERILATE_COMMAND.format(trace, module))
+    dpi_file = get_dpi_file(module)
+    os.system(VERILATE_COMMAND.format(trace, module, dpi_file))
     os.system(MAKE_COMMAND.format(module))
 
 

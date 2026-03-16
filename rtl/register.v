@@ -1,3 +1,16 @@
+// =============================================================================
+// 16-bit Register
+// Edge-triggered register with synchronous reset and enable
+// =============================================================================
+// Inputs:
+//   d_in  - 16-bit data input
+//   clk   - Clock (positive edge triggered)
+//   reset - Synchronous reset (active high)
+//   en    - Enable (active high)
+// Outputs:
+//   d_out - 16-bit data output
+// =============================================================================
+
 module register(
     input [15:0] d_in,
     input clk,

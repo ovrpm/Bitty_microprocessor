@@ -1,3 +1,20 @@
+// =============================================================================
+// Arithmetic Logic Unit (ALU)
+// Performs arithmetic and bitwise operations on 16-bit operands
+// =============================================================================
+// Inputs:
+//   in_a   - First 16-bit operand
+//   in_b   - Second 16-bit operand  
+//   sel    - Operation select (3-bit)
+// Outputs:
+//   alu_out - 16-bit result
+// Operations:
+//   000: Addition       100: Bitwise XOR
+//   001: Subtraction    101: Left shift
+//   010: Bitwise AND    110: Right shift
+//   011: Bitwise OR     111: Comparison (0:=equal, 1:=greater, 2:=less)
+// =============================================================================
+
 module alu(
 	input wire [15:0] in_a,
 	input wire [15:0] in_b,

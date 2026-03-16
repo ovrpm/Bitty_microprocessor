@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-int main()
-{    
+int main(){
 
     Vmux* dut = new Vmux();
 
@@ -17,14 +16,14 @@ int main()
     dut->in7 = 8;
     dut->in8 = 9;
 
-    int dut_output;
+    uint16_t dut_output;
 
     //verifying all of the select options
-    for (int i = 0; i < 15; i++){
+    for (size_t i = 0; i < 15; i++){
         dut->mux_sel = i;
         dut->eval();
  
-        dut_output = (int)dut->mux_out;
+        dut_output = (uint16_t)dut->mux_out;
 
         //check unspecified inputs
         if (i > 8 && dut_output == 0){

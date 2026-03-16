@@ -3,16 +3,16 @@
 #include <iostream>
 #include <ctime>
 
-int main()
-{
+int main(){
     srand(time(nullptr));
+    int num_tests = 1000000;
 
     uint16_t rand_a, rand_b, rand_sel, exp_out;
 
     Valu* dut = new Valu();
 
-    //one million random tests
-    for (size_t i = 0; i < 1000000; i++){
+    //random tests
+    for (size_t i = 0; i < num_tests; i++){
         rand_a = rand() % 65536;
         rand_b = rand() % 65536;
         rand_sel = rand() % 8;
@@ -45,10 +45,6 @@ int main()
             else exp_out = 2;
         }
 
-        //std::cout << "-------------Test#" << i << "------------" << std::endl;
-        //std::cout << "in_a = " << rand_a << " in_b = " << rand_b << std::endl;
-        //std::cout << "dut = " << (int)dut->alu_out << " exp = " << exp_out << " select = " << rand_sel << std::endl;
-
         if ((uint16_t)dut->alu_out == exp_out){
             std::cout << "OK" << std::endl;
         }else{
@@ -58,8 +54,8 @@ int main()
 
             return 0;
         }
-
     }
- 
+    std::cout << "All " << num_tests << " ALU tests passed" << std::endl;
+
     return 0;
 }
